@@ -1,0 +1,5 @@
+[functions.process-payment]
+verify_jwt = true
+
+[functions.auth-verification]
+verify_jwt = false
