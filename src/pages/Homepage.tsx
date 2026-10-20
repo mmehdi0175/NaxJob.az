@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Briefcase, Search, MapPin, Star, Building2, Clock, Eye, ArrowRight,
+  Briefcase, Search, MapPin, Star, Building2, Clock, Eye,
   TrendingUp, FileText, ChevronDown, Menu, X, User, LogOut,
   LayoutDashboard, Shield, Plus, Calendar, Wallet, GraduationCap,
-  Mail, Phone, Send, Copy, Check, Users, UserCircle, Download,
-  Zap, AlertCircle,
+  Mail, Phone, Send, Copy, Check, Users, Download,
+  Zap,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useLookupData } from '@/hooks/useLookupData';
@@ -22,7 +22,7 @@ type ContentView = 'vacancies' | 'categories' | 'industries' | 'companies' | 'cv
 
 export default function Homepage() {
   const { user, signOut } = useAuth();
-  const { categories, regions, loading } = useLookupData();
+  const { categories, regions } = useLookupData();
   const navigate = useNavigate();
 
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
@@ -551,7 +551,6 @@ export default function Homepage() {
               onSelectVacancy={setSelectedVacancy}
               hasFilters={false}
               title="Premium vakansiyalar"
-              premiumOnly
             />
           )}
 
@@ -736,24 +735,18 @@ function StatRow({ icon: Icon, label, value, color }: { icon: typeof Calendar; l
   );
 }
 
-function VacanciesView({ vacancies, loading, selectedVacancy, onSelectVacancy, hasFilters, title, premiumOnly }: {
+function VacanciesView({ vacancies, loading, selectedVacancy, onSelectVacancy, hasFilters, title }: {
   vacancies: Vacancy[];
   loading: boolean;
   selectedVacancy: Vacancy | null;
   onSelectVacancy: (v: Vacancy) => void;
   hasFilters: boolean;
   title?: string;
-  premiumOnly?: boolean;
 }) {
   return (
     <div className="bg-white rounded-xl border border-gray-200">
-      <div className="flex items-center justify-between p-4 border-b border-gray-100">
+      <div className="p-4 border-b border-gray-100">
         <h2 className="font-bold text-gray-900">{title || 'Son iş elanları'}</h2>
-        {!premiumOnly && (
-          <Link to="/vakansiyalar" className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1">
-            Bütün vakansiyalar <ArrowRight className="w-4 h-4" />
-          </Link>
-        )}
       </div>
       {loading ? (
         <div className="p-8 text-center">

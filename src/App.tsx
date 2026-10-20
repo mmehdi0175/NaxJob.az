@@ -5,12 +5,6 @@ import { I18nProvider } from '@/lib/i18n/context';
 import Homepage from '@/pages/Homepage';
 import { Spinner } from '@/components/Spinner';
 
-const VacancyList = lazy(() => import('@/pages/VacancyList'));
-const VacancyDetail = lazy(() => import('@/pages/VacancyDetail'));
-const Companies = lazy(() => import('@/pages/Companies'));
-const CompanyProfile = lazy(() => import('@/pages/CompanyProfile'));
-const Pricing = lazy(() => import('@/pages/Pricing'));
-const CVPage = lazy(() => import('@/pages/CVPage'));
 const Login = lazy(() => import('@/pages/auth/Login'));
 const RegisterChoice = lazy(() => import('@/pages/auth/RegisterChoice'));
 const EmployerRegister = lazy(() => import('@/pages/auth/EmployerRegister'));
@@ -53,14 +47,8 @@ export default function App() {
         <BrowserRouter>
           <Suspense fallback={<PageLoader />}>
             <Routes>
-              {/* Public routes */}
+              {/* Main single-page interface */}
               <Route path="/" element={<Homepage />} />
-              <Route path="/vakansiyalar" element={<VacancyList />} />
-              <Route path="/vakansiya/:id" element={<VacancyDetail />} />
-              <Route path="/sirketler" element={<Companies />} />
-              <Route path="/sirket/:id" element={<CompanyProfile />} />
-              <Route path="/qiymetler" element={<Pricing />} />
-              <Route path="/cv-ler" element={<CVPage />} />
 
               {/* Auth routes */}
               <Route path="/giris" element={<Login />} />
@@ -99,7 +87,7 @@ export default function App() {
                 <Route path="ayarlar" element={<AdminSettings />} />
               </Route>
 
-              {/* Fallback */}
+              {/* Fallback — all unknown URLs go to the main page */}
               <Route path="*" element={<Homepage />} />
             </Routes>
           </Suspense>
